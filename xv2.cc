@@ -128,86 +128,14 @@ int main(int argc, char **argv)
     case 0x5a: adr+=2; break;
     case 0x5c: adr+=2; break;
     case 0x5e: adr+=2; break;
-    case 0x60: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r0, %02x", value);
-      break;
-    }
+    case 0x60: adr++; break;
     case 0x61: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r1, %02x", value);
+      u8 value = r8(data + adr++) & 0x3f;
+      opc = util::string_format("add sp, %02x", value); //is sp just r1?
       break;
     }
-    case 0x62: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r2, %02x", value);
-      break;
-    }
-    case 0x63: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r3, %02x", value);
-      break;
-    }
-    case 0x64: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r4, %02x", value);
-      break;
-    }
-    case 0x65: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r5, %02x", value);
-      break;
-    }
-    case 0x66: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r6, %02x", value);
-      break;
-    }
-    case 0x67: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r7, %02x", value);
-      break;
-    }
-    case 0x68: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r8, %02x", value);
-      break;
-    }
-    case 0x69: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r9, %02x", value);
-      break;
-    }
-    case 0x6a: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r10, %02x", value);
-      break;
-    }
-    case 0x6b: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r11, %02x", value);
-      break;
-    }
-    case 0x6c: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r12, %02x", value);
-      break;
-    }
-    case 0x6d: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r13, %02x", value);
-      break;
-    }
-    case 0x6e: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r14, %02x", value);
-      break;
-    }
-    case 0x6f: {
-      u8 value = r8(data + adr++);
-      opc = util::string_format("mov r15, %02x", value);
-      break;
-    }
+    case 0x62: adr++; break;
+    case 0x6e: adr++; break;
     case 0x78: case 0x79: {
       u16 reg = ((opcode << 8) | r8(data + adr++)) & 0x1ff;
       opc = util::string_format("restore %03x", reg);
