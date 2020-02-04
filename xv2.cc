@@ -94,7 +94,7 @@ int main(int argc, char **argv)
     std::string opc = "?";
 
     switch(opcode) {
-    case 0x06: adr+=3; break;
+    case 0x06: adr+=2; break;
     case 0x09: {
       u32 a1 = (r8(data + adr) << 16) | r16(data + adr + 1);
       adr += 3;
@@ -131,7 +131,7 @@ int main(int argc, char **argv)
     case 0x60: adr++; break;
     case 0x61: {
       u8 value = r8(data + adr++) & 0x3f;
-      opc = util::string_format("add sp, %02x", value); //is sp just r1?
+      opc = util::string_format("add sp, %c%02x", (value & 0x20) ? '-' : '+', value & 0x1f); //is sp just r1?
       break;
     }
     case 0x62: adr++; break;
